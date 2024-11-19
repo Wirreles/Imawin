@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
+
 import { GoogleAuthProvider } from 'firebase/auth';
 import { ClubProfile } from 'src/models/club.model';
 import { DtProfile } from 'src/models/dt.model';
 import { ManagerProfile } from 'src/models/manager.model';
 import { Review } from 'src/models/reviews.model';
+import { Message } from 'src/models/message.model';
+import { Timestamp } from '@angular/fire/firestore';
+
+
+
 
 
 
@@ -264,6 +270,62 @@ getManagerByUserId(uid: string): Observable<any> {
 getClubByUserId(uid: string): Observable<any> {
   return this.firestore.collection('club', ref => ref.where('userId', '==', uid)).valueChanges();
 }
+
+
+
+
+
+
+
+
+
+// Método para crear un nuevo chat
+createChat(chatId: string, users: string[]): Promise<void> {
+  return this.firestore.collection('chats').doc(chatId).set({
+    users: users,
+    messages: [] // Inicializamos el array de mensajes vacío
+  });
+}
+
+getMessages(chatId: string): Observable<Message[]> {
+  return this.firestore.collection('chats')
+    .doc(chatId)
+    .collection('messages', ref => ref.orderBy('timestamp'))
+    .valueChanges({ idField: 'id' })  // Agrega el campo 'id'
+    .pipe(
+      map(messages => messages.map((message: any) => {
+        // Transformamos los mensajes para que coincidan con la interfaz Message
+        return {
+          id: message.id,
+          senderId: message.senderId,
+          messageText: message.messageText,
+          timestamp: message.timestamp,
+        };
+      }))
+    );
+}
+
+sendMessage(chatId: string, message: Message): Promise<DocumentReference> {
+  return this.firestore.collection('chats')
+    .doc(chatId)
+    .collection('messages')
+    .add({
+      messageText: message.messageText,
+      senderId: message.senderId,
+      timestamp: Timestamp.fromDate(new Date()) // Usamos Timestamp de Firestore
+    });
+}
+
+
+// Método para obtener el chat entre dos usuarios
+getChatByUsers(user1Id: string, user2Id: string): Observable<any> {
+  return this.firestore.collection('chats', ref =>
+    ref.where('users', 'array-contains', user1Id)
+       .where('users', 'array-contains', user2Id))
+    .valueChanges();
+}
+
+
 
 
 getReviewsByProfileId(profileId: string) {

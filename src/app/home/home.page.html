@@ -16,6 +16,9 @@
             <ion-button fill="clear" class="nav-button" (click)="navigateTo('managers')">Representantes</ion-button>
             <ion-button fill="clear" class="nav-button" (click)="navigateTo('clubes')">Clubes</ion-button>
             <ion-button fill="clear" class="nav-button" (click)="navigateTo('dts')">DT</ion-button>
+
+                  <ion-item button (click)="navigateTo('q&a')">Faq</ion-item>
+
           </ion-buttons>
         </ion-col>
 
@@ -108,7 +111,7 @@
     <div class="text-content">
       <h2>Como Club</h2>
       <p>Gestiona tus contactos con agentes y encuentra jugadores de diversas categorías y regiones del mundo desde una sola plataforma.</p>
-      <ion-button color="white" style="background-color: #ff6600;" class="register-button">Crear mi perfil de club</ion-button>
+      <ion-button color="white" style="background-color: #ff6600;" class="register-button"  (click)="navigateTo('register')"  >Crear mi perfil de club</ion-button>
     </div>
   </div>
 
@@ -129,9 +132,9 @@
       </div>
 
       <div class="privacy-links">
-        <a href="#" style="color: #ff6600;">Políticas de privacidad</a>
+        <a href="https://imawinterminos.vercel.app/" style="color: #ff6600;">Políticas de privacidad</a>
         <br>
-        <a href="#" style="color: #ff6600;">Términos y condiciones</a>
+        <a href="https://imawinterminos.vercel.app/" style="color: #ff6600;">Términos y condiciones</a>
       </div>
     </div>
   </ion-footer>
