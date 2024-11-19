@@ -3,6 +3,9 @@ import { Router } from '@angular/router'; // Importa el servicio Router
 import { PlayerProfile } from 'src/models/playerProfile.model';
 import { FirestoreService } from 'src/services/firestore.service';
 
+import { MenuController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-profile-player',
@@ -22,14 +25,19 @@ export class ProfilePlayerComponent implements OnInit {
   searchQuery: string = '';
   country: string = '';
 
-  constructor(private router: Router,private firestoreService: FirestoreService) { }
+  constructor(private router: Router,private firestoreService: FirestoreService,        private menuCtrl: MenuController
+) { }
 
   ngOnInit() {
 
         this.getAllPlayers();
-
-
+     this.menuCtrl.enable(true, 'first');
   }
+
+
+   ionViewWillLeave() {
+  this.menuCtrl.enable(false, 'first');
+}
 
    navigateToPlayerProfil() {
     this.router.navigate(['detalleJugador']);

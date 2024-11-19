@@ -24,6 +24,7 @@ import { FormsModule } from '@angular/forms';
 
 import { PerfilComponent } from './perfil/perfil.component';
 import { ManagersComponent } from './managers/managers.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ManagersComponent } from './managers/managers.component';
     DtsComponent,
     RegisterComponent,
     LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

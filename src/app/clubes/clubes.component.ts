@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClubProfile } from 'src/models/club.model';
 import { FirestoreService } from 'src/services/firestore.service';
+import { MenuController } from '@ionic/angular';
+
+
+
 
 @Component({
   selector: 'app-clubes',
@@ -21,13 +25,23 @@ export class ClubesComponent implements OnInit {
   countryFilter: string = '';
 
 
+
+
   constructor(private router: Router,
-    private firestoreService: FirestoreService
+  private menuCtrl: MenuController,
+    private firestoreService: FirestoreService,
   ) { }
 
   ngOnInit() {
     this.getAllClubs();
+
+     this.menuCtrl.enable(true, 'first');
   }
+
+
+  ionViewWillLeave() {
+  this.menuCtrl.enable(false, 'first'); 
+}
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);

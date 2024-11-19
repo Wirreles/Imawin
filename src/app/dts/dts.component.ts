@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { DtProfile } from 'src/models/dt.model';
 import { FirestoreService } from 'src/services/firestore.service';
 
+import { MenuController } from '@ionic/angular';
+
+
 @Component({
   selector: 'app-dts',
   templateUrl: './dts.component.html',
@@ -26,12 +29,22 @@ export class DtsComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.getAllDts();
+      this.menuCtrl.enable(true, 'first');
   }
+
+
+
+
+  ionViewWillLeave() {
+  this.menuCtrl.enable(false, 'first');
+}
+
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
