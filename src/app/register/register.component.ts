@@ -90,9 +90,9 @@ export class RegisterComponent {
   player: PlayerProfile = {
     tipo_usuario:'',
     userId:'',
-    playerType: 'jugador',
-    footPreference: 'derecho',
-    position: 'central',
+    playerType: 'Jugador',
+    footPreference: 'Diestro',
+    position: 'Central',
     country: '',
     detalle: '',
     province: '',

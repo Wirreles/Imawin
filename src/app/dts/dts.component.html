@@ -99,29 +99,38 @@
 
 
   <br />
-  <!-- Contenedor de tarjetas de DTs -->
-  <div class="players-container">
-    <!-- <div class="player-card" *ngFor="let dt of dts"> -->
-        <div class="player-card" *ngFor="let dt of filteredDts">
-
-      <img [src]="dt.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ dt.playerName }}">
-      <div class="player-info">
-        <h3>{{ dt.playerName }}</h3>
-        <p>{{ dt.dt }}</p>
-        <p>{{ dt.country }} - {{ dt.province }}</p>
-        <p>Exp: {{ dt.yearsOfExperience || 0 }} años</p>
-        <h4>Estilo de Juego</h4>
-        <p>{{ dt.gusto }}</p>
-        <h4>Último Club</h4>
-        <p>{{ dt.lastClub || 'No disponible' }}</p>
-        <h4>Club Actual</h4>
-        <p>{{ dt.currentClub || 'No disponible' }}</p>
-        <h4>Video</h4>
-        <p><a [href]="dt.videoLink" target="_blank">Ver Video</a></p>
-        <p>Detalles: {{ dt.detalle }}</p>
-      </div>
+<!-- Contenedor de tarjetas de DTs -->
+<div class="players-container">
+  <!-- Muestra cada DT filtrado en una tarjeta -->
+  <div class="player-card" *ngFor="let dt of filteredDts">
+    <img [src]="dt.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ dt.playerName }}">
+    <div class="player-info">
+      <h3>{{ dt.playerName }}</h3>
+      <p><strong>Estado:</strong> {{ dt.dt }}</p>
+      <p><strong>Ubicación:</strong> {{ dt.country }} - {{ dt.province }}</p>
+      <p><strong>Experiencia:</strong> {{ dt.yearsOfExperience || 0 }} años</p>
+      <h4>Estilo de Juego</h4>
+      <p>{{ dt.gusto }}</p>
+      <h4>Último Club</h4>
+      <p>{{ dt.lastClub || 'No disponible' }}</p>
+      <h4>Club Actual</h4>
+      <p>{{ dt.currentClub || 'No disponible' }}</p>
+      <h4>Video</h4>
+      <p>
+        <a *ngIf="dt.videoLink" [href]="dt.videoLink" target="_blank">Ver Video</a>
+        <span *ngIf="!dt.videoLink">No disponible</span>
+      </p>
+      <p><strong>Detalles:</strong> {{ dt.detalle }}</p>
+    </div>
+    <div class="player-actions">
+      <!-- Botón para navegar al perfil del DT -->
+      <button [routerLink]="['/perfil-cliente', dt.userId]" class="view-profile-button">
+        Ver Perfil
+      </button>
     </div>
   </div>
+</div>
+
 
   <link
     rel="stylesheet"

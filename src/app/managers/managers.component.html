@@ -89,24 +89,31 @@
 
 
 
-  <!-- Contenedor de tarjetas de Managers -->
-  <div class="players-container">
-    <!-- <div class="player-card" *ngFor="let manager of managers"> -->
-      <div class="player-card" *ngFor="let manager of filteredManagers">
-      <img [src]="manager.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ manager.playerName }}">
-      <div class="player-info">
-        <h3>{{ manager.playerName }}</h3>
-        <p>{{ manager.manager }}</p>
-        <p>{{ manager.country }} - {{ manager.province }}</p>
-        <p>Exp: {{ manager.yearsOfExperience || 0 }} años</p>
-        <h4>Último Club</h4>
-        <p>{{ manager.lastClub || 'No disponible' }}</p>
-        <h4>Club Actual</h4>
-        <p>{{ manager.currentClub || 'No disponible' }}</p>
-        <p>Detalles: {{ manager.detalle }}</p>
-      </div>
+<!-- Contenedor de tarjetas de Managers -->
+<div class="players-container">
+  <!-- Muestra cada manager filtrado en una tarjeta -->
+  <div class="player-card" *ngFor="let manager of filteredManagers">
+    <img [src]="manager.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ manager.playerName }}">
+    <div class="player-info">
+      <h3>{{ manager.playerName }}</h3>
+      <p><strong>Estado:</strong> {{ manager.manager }}</p>
+      <p><strong>País:</strong> {{ manager.country }} - {{ manager.province }}</p>
+      <p><strong>Experiencia:</strong> {{ manager.yearsOfExperience || 0 }} años</p>
+      <h4>Último Club</h4>
+      <p>{{ manager.lastClub || 'No disponible' }}</p>
+      <h4>Club Actual</h4>
+      <p>{{ manager.currentClub || 'No disponible' }}</p>
+      <p><strong>Detalles:</strong> {{ manager.detalle }}</p>
+    </div>
+    <div class="player-actions">
+      <!-- Botón para navegar al perfil del manager -->
+      <button [routerLink]="['/perfil-cliente', manager.userId]" class="view-profile-button">
+        Ver Perfil
+      </button>
     </div>
   </div>
+</div>
+
 
   <link
     rel="stylesheet"
