@@ -60,18 +60,21 @@
 <ion-content id="main-content" class="ion-padding registro-container content-background">
   <!-- Contenedor de pasos en color naranja -->
   <div class="steps-container">
-    <!-- Barra de progreso con pasos numerados -->
+   <!-- Barra de progreso con pasos numerados -->
+   <div class="progress-container">
     <div class="progress-bar">
       <div class="step" [class.active]="currentStep >= 1">1</div>
       <div class="step" [class.active]="currentStep >= 2">2</div>
       <div class="step" [class.active]="currentStep >= 3">3</div>
     </div>
-
     <div class="steps-header">
       <span>Google</span>
       <span>Tipo de Perfil</span>
       <span>Información</span>
     </div>
+  </div>
+
+
     <!-- Barra de progreso en la parte superior de la pantalla -->
 <ion-progress-bar [value]="currentStep / 3" color="tertiary"></ion-progress-bar>
     <!-- Paso 1: Registro con Google -->
@@ -97,7 +100,7 @@
         <ion-col size="6" size-md="3">
           <ion-button
             expand="block"
-            color="primary"
+            class="button-orange"
             [class.selected]="userType === 'club'"
             (click)="selectUserType('club')">
             Club
@@ -106,7 +109,7 @@
         <ion-col size="6" size-md="3">
           <ion-button
             expand="block"
-            color="primary"
+            class="button-orange"
             [class.selected]="userType === 'player'"
             (click)="selectUserType('player')">
             Jugador
@@ -115,7 +118,7 @@
         <ion-col size="6" size-md="3">
           <ion-button
             expand="block"
-            color="primary"
+            class="button-orange"
             [class.selected]="userType === 'dt'"
             (click)="selectUserType('dt')">
             DT
@@ -124,7 +127,7 @@
         <ion-col size="6" size-md="3">
           <ion-button
             expand="block"
-            color="primary"
+            class="button-orange"
             [class.selected]="userType === 'manager'"
             (click)="selectUserType('manager')">
             Manager

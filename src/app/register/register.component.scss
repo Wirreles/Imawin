@@ -207,6 +207,15 @@ ion-menu[menuId="first"] ion-content {
   background-color: #333333;
 }
 
+.steps-header {
+  display: flex;
+  justify-content: space-around;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
 /* Fondo del contenedor de pasos */
 .steps-container {
   background-color: #FF6A00;
@@ -216,14 +225,6 @@ ion-menu[menuId="first"] ion-content {
 }
 
 
-.steps-header {
-  display: flex;
-  justify-content: space-around;
-  color: black;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
 /* Tarjetas de paso */
 .step-card {
   background-color: white;
@@ -232,11 +233,19 @@ ion-menu[menuId="first"] ion-content {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.button-orange {
-  background-color: #ff6600 !important;
-  color: white;
-}
-
+/* Estilos de los botones */
+// .button-orange {
+//   width: 80%;
+//   max-width: 300px;
+//   background-color: #FF6A00 !important;
+//   color: white !important;
+//   font-weight: bold !important;
+//   border-radius: 25px !important;
+//   --padding-start: 10px !important;
+//   --padding-end: 10px !important;
+//   --padding-top: 8px !important;
+//   --padding-bottom: 8px !important;
+// }
 
 /* Contenedor para los botones */
 .button-container {
@@ -245,6 +254,12 @@ ion-menu[menuId="first"] ion-content {
   margin-top: 20px;
 }
 
+ion-button.button-orange {
+  --background: #FF6A00;
+  --color: white;
+  --border-radius: 25px;
+  font-weight: bold;
+}
 
 ion-card-header {
   text-align: center;
@@ -259,12 +274,6 @@ ion-button {
 /* Barra de progreso en steps-container */
 .steps-container ion-progress-bar {
   --background: white;
-}
-
-/* Botones de selección de perfil */
-.button-orange {
-  background-color: #ff6600 !important;
-  color: white;
 }
 
 .step-card {
