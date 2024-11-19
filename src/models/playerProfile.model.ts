@@ -1,9 +1,10 @@
 export interface PlayerProfile {
-  foot: any;
-  birthDate: string|number|Date;
-    playerType: 'jugador' | 'arquero'; // Tipo de jugador
-    footPreference: 'izquierdo' | 'derecho' | 'ambas'; // Preferencia de pie
-    position: 'central' | 'lateral' | 'delantero' | 'enganche' | 'medio'; // Posición en el campo
+    userId: string;
+    foot: any;
+    birthDate: string|number|Date;
+    playerType: 'Jugador' | 'Arquero'; // Tipo de jugador
+    footPreference: 'Izquierdo' | 'Derecho' | 'Ambas'; // Preferencia de pie
+    position: 'Central' | 'Lateral' | 'Delantero' | 'Enganche' | 'Medio'; // Posición en el campo
     country: string; // País
     province: string; // Provincia
     playerName: string; // Nombre del jugador
@@ -13,6 +14,6 @@ export interface PlayerProfile {
     height: any; // Altura en cm
     yearsOfExperience: any; // Años de experiencia
     videoLink: string; // Enlace a video de YouTube
-      profilePhotoUrl: string; // URL de la foto de perfil
-      detalle: string;
+    profilePhotoUrl: string; // URL de la foto de perfil
+    detalle: string;
   }

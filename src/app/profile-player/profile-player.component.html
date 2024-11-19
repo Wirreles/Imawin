@@ -111,30 +111,29 @@
   </div>
 
 
-<div class="players-container">
-
-  <!-- Muestra cada jugador filtrado en una tarjeta -->
+  <div class="players-container">
+    <!-- Muestra cada jugador filtrado en una tarjeta -->
     <div class="player-card" *ngFor="let player of filteredPlayers">
-    <img [src]="player.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ player.playerName }}">
-    <div class="player-info">
-      <h3>{{ player.playerName }}</h3>
-      <p><strong>Posición:</strong> {{ player.position }}</p>
-      <p><strong>País:</strong> {{ player.country }} - {{ player.province }}</p>
-      <p><strong>Experiencia:</strong> {{ player.yearsOfExperience }} años</p>
-      <p><strong>Fecha de Nacimiento:</strong> {{ player.birthDate | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>Pierna Hábil:</strong> {{ player.foot }} - <strong>Altura:</strong> {{ player.height }} cm</p>
-    </div>
-    <div class="player-actions">
-  <!-- Enlace al video del jugador -->
-      <a [href]="player.videoLink" target="_blank"><i class="fa fa-play"></i> Partido</a>
+      <img [src]="player.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ player.playerName }}">
+      <div class="player-info">
+        <h3>{{ player.playerName }}</h3>
+        <p><strong>Posición:</strong> {{ player.position }}</p>
+        <p><strong>País:</strong> {{ player.country }} - {{ player.province }}</p>
+        <p><strong>Experiencia:</strong> {{ player.yearsOfExperience }} años</p>
+        <p><strong>Fecha de Nacimiento:</strong> {{ player.birthDate | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Pierna Hábil:</strong> {{ player.foot }} - <strong>Altura:</strong> {{ player.height }} cm</p>
+      </div>
+      <div class="player-actions">
+        <!-- Enlace al video del jugador -->
+        <!-- <a [href]="player.videoLink" target="_blank"><i class="fa fa-play"></i> Partido</a> -->
+
+        <!-- Botón para navegar al perfil del jugador -->
+        <button [routerLink]="['/perfil-cliente', player.userId]" class="view-profile-button">
+          Ver Perfil
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
-
-
-
-
 
 
 

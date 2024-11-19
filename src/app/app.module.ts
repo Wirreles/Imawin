@@ -25,9 +25,11 @@ import { FormsModule } from '@angular/forms';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ManagersComponent } from './managers/managers.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.component';
 
 @NgModule({
   declarations: [
+    PerfilClienteComponent,
     ManagersComponent,
     AppComponent,
     PerfilComponent,

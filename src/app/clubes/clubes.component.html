@@ -86,22 +86,33 @@
 
   <br />
 
-  <!-- Contenedor de tarjetas de clubes -->
-  <div class="players-container">
-<div class="player-card" *ngFor="let club of filteredClubs">
-      <img [src]="club.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ club.nombre }}">
-      <div class="player-info">
-        <h3>{{ club.nombre }}</h3>
-        <p>{{ club.detalle }}</p>
-        <p>{{ club.country }} - {{ club.province }}</p>
-        <p>Fundación: {{ club.fundacion }}</p>
-        <h4>Redes Sociales</h4>
-        <p>Instagram: {{ club.instagram || 'No disponible' }}</p>
-        <p>Facebook: {{ club.facebook || 'No disponible' }}</p>
-        <p><a [href]="club.website" target="_blank">Sitio Web</a></p>
-      </div>
+<!-- Contenedor de tarjetas de clubes -->
+<div class="players-container">
+  <!-- Muestra cada club filtrado en una tarjeta -->
+  <div class="player-card" *ngFor="let club of filteredClubs">
+    <img [src]="club.profilePhotoUrl || 'https://via.placeholder.com/300x200'" alt="{{ club.nombre }}">
+    <div class="player-info">
+      <h3>{{ club.nombre }}</h3>
+      <p><strong>Detalle:</strong> {{ club.detalle }}</p>
+      <p><strong>Ubicación:</strong> {{ club.country }} - {{ club.province }}</p>
+      <p><strong>Fundación:</strong> {{ club.fundacion || 'No disponible' }}</p>
+      <h4>Redes Sociales</h4>
+      <p><strong>Instagram:</strong> {{ club.instagram || 'No disponible' }}</p>
+      <p><strong>Facebook:</strong> {{ club.facebook || 'No disponible' }}</p>
+      <p>
+        <strong>Sitio Web:</strong>
+        <a *ngIf="club.website" [href]="club.website" target="_blank">{{ club.website }}</a>
+        <span *ngIf="!club.website">No disponible</span>
+      </p>
+    </div>
+    <div class="player-actions">
+      <!-- Botón para navegar al perfil del club -->
+      <button [routerLink]="['/perfil-cliente', club.userId]" class="view-profile-button">
+        Ver Perfil
+      </button>
     </div>
   </div>
+</div>
 
   <link
     rel="stylesheet"

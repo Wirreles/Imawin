@@ -458,3 +458,152 @@ ion-content {
 .view-profile-button:hover {
   background-color: #555555;
 }
+
+.perfil-cliente {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-cliente h1 {
+  color: #ff6600;
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.perfil-cliente p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333333;
+}
+
+.perfil-cliente p strong {
+  font-weight: bold;
+  color: #ff6600;
+}
+
+.perfil-cliente .info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.perfil-cliente .info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.perfil-cliente .info-item span {
+  font-size: 14px;
+  color: #555555;
+}
+
+.perfil-cliente .info-item .label {
+  font-weight: bold;
+  color: #ff6600;
+}
+
+/* Sección principal del perfil */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Cabecera: Foto y título */
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+/* Foto de perfil */
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff6600;
+}
+
+/* Mensaje para foto no disponible */
+.no-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #999;
+  border: 2px dashed #ff6600;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Título del perfil */
+.profile-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+/* Contenedor de información */
+.info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 10px;
+}
+
+/* Elementos de información */
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.info-item .label {
+  font-weight: bold;
+  color: #555;
+}
+
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-content .social-icons a {
+  margin: 0 10px;
+}
+
+.footer-content .privacy-links {
+  text-align: right;
+  font-size: 14px;
+  color: #ff6600;
+}
+
+.footer-content .privacy-links a {
+  text-decoration: none;
+}

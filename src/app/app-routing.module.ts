@@ -9,6 +9,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ManagersComponent } from './managers/managers.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
+import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.component';
 
 
 
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'managers',
     component: ManagersComponent
+  },
+  {
+    path:  'perfil-cliente/:id',
+    component: PerfilClienteComponent
   },
   {
   path: 'Jugadores',

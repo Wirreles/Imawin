@@ -1,6 +1,6 @@
 export interface ManagerProfile {
   manager: 'Activo' | 'Inactivo';
-
+  userId: string;
   country: string; // País
   province: string; // Provincia
   playerName: string; // Nombre del jugador

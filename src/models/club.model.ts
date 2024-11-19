@@ -1,5 +1,5 @@
 export interface ClubProfile {
-
+  userId: string;
   country: string;
   province: string;
   nombre: string;

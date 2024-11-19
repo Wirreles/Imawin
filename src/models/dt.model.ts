@@ -1,6 +1,6 @@
 export interface DtProfile {
   dt: 'Activo' | 'Inactivo';
-
+  userId: string;
   gusto: 'Ofensivo' | 'Defensivo' | 'Ambas' | 'Depende' ; // Posición en el campo
   country: string; // País
   province: string; // Provincia
@@ -11,7 +11,6 @@ export interface DtProfile {
   height: any; // Altura en cm
   yearsOfExperience: any; // Años de experiencia
   videoLink: string; // Enlace a video de YouTube
-    profilePhotoUrl: string; // URL de la foto de perfil
-    detalle: string
-
+  profilePhotoUrl: string; // URL de la foto de perfil
+  detalle: string
 }
