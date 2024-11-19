@@ -38,4 +38,8 @@ export class HomePage  implements OnInit {
     this.router.navigate([`/${route}`]);
   }
 
+  navigate(route: string){
+this.router.navigateByUrl('clubes')
+  }
+
 }

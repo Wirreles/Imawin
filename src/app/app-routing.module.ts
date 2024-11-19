@@ -7,6 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ManagersComponent } from './managers/managers.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
 
 
 
@@ -42,6 +44,10 @@ const routes: Routes = [
 {
   path: 'perfil',
   component:PerfilComponent
+},
+{
+  path: 'q&a',
+  component:NavbarComponent
 },
 
   {

@@ -1,3 +1,15 @@
+<!-- <section>
+  <h2>Preguntas Frecuentes</h2>
+  <ul>
+    <li *ngFor="let faq of faqs">
+      <h3>{{ faq.question }}</h3>
+      <p>{{ faq.answer }}</p>
+    </li>
+  </ul>
+</section> -->
+
+
+
 <ion-header>
   <ion-toolbar>
     <ion-grid>
@@ -22,7 +34,7 @@
         <!-- Login and Register buttons (hidden on mobile) -->
         <ion-col size="12" size-md="3" class="buttons-column">
           <ion-buttons class="buttons-container">
-            <!-- <ion-button (click)="navigateTo('perfil')" class="login-button">PERFIL</ion-button> -->
+            <ion-button (click)="navigateTo('perfil')" class="login-button">PERFIL</ion-button>
             <ion-button (click)="navigateTo('home')" class="start-button">FAQ</ion-button>
           </ion-buttons>
         </ion-col>
@@ -38,21 +50,76 @@
 
 <!-- Sidebar menu -->
 <ion-menu side="start" menuId="first" contentId="main-content">
+
+
   <ion-header>
     <ion-toolbar color="primary">
       <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
 
-
   <ion-content>
     <ion-list>
       <ion-item button (click)="navigateTo('Jugadores')">Jugadores</ion-item>
       <ion-item button (click)="navigateTo('managers')">Representantes</ion-item>
       <ion-item button (click)="navigateTo('clubes')">Clubes</ion-item>
-      <!-- <ion-item button (click)="navigateTo('dts')">DT</ion-item> -->
+      <ion-item button (click)="navigateTo('dts')">DT</ion-item>
       <ion-item button (click)="navigateTo('perfil')">Perfil</ion-item>
-      <ion-item button (click)="navigateTo('home')">Faq</ion-item>
+      <!-- <ion-item button (click)="navigateTo('navbar')">Faq</ion-item> -->
     </ion-list>
   </ion-content>
 </ion-menu>
+
+
+
+
+
+
+
+
+
+
+
+
+<ion-content id="main-content">
+  <div class="how-it-works">
+    <h1 class="gradient-text">Preguntas Frecuentes
+</h1>
+  </div>
+
+
+  <section  >
+
+  <ul>
+    <li *ngFor="let faq of faqs">
+      <h3>{{ faq.question }}</h3>
+      <p>{{ faq.answer }}</p>
+    </li>
+  </ul>
+</section>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+
+  <br />
+  <br />
+
+  <ion-footer>
+    <div class="footer-content">
+      <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-twitter fa-2x" style="color: #ff6600;"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram fa-2x" style="color: #ff6600;"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube fa-2x" style="color: #ff6600;"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin fa-2x" style="color: #ff6600;"></i></a>
+      </div>
+
+      <div class="privacy-links">
+        <a href="https://imawinterminos.vercel.app/" style="color: #ff6600;">Políticas de privacidad</a>
+        <br>
+        <a href="https://imawinterminos.vercel.app/" style="color: #ff6600;">Términos y condiciones</a>
+      </div>
+    </div>
+  </ion-footer>
+</ion-content>

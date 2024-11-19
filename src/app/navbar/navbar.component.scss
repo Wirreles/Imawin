@@ -156,6 +156,7 @@ ion-menu[menuId="first"] ion-content {
 }
 
 
+
 .hero {
   display: flex;
   justify-content: space-between;
@@ -248,6 +249,7 @@ ion-footer {
   font-size: 14px;
   color: #ff6600;
 }
+
 
 /* Asegúrate de que el contenido principal no esté detrás del footer */
 ion-content {
@@ -410,36 +412,44 @@ ion-content {
     margin-right: 5px;
 }
 
+section {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos dentro se organicen en columna */
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  max-width: 800px; /* Opcional: Limita el ancho máximo */
+  margin: auto; /* Centra horizontalmente el contenido si el ancho máximo es menor que la pantalla */
+  font-family: Arial, sans-serif;
+  text-align: center; /* Centra el texto */
+}
 
+h2 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 20px;
+}
 
- .boton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 20px;
-    background-color: #ff6600; /* Fondo del contenedor */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del contenedor */
-    max-width: 320px;
-    margin: 10px auto;
-    width: 100%;
-  }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .boton ion-select {
-    --placeholder-color: #999; /* Color del texto del placeholder */
-    --color: #333; /* Color del texto normal */
-    --padding-start: 10px; /* Padding a la izquierda */
-    --background: #fff; /* Fondo blanco */
-    --border-radius: 8px; /* Bordes redondeados */
-    --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra de la caja */
-    width: 100%;
-    max-width: 300px;
-  }
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  width: 100%; /* Ocupa todo el ancho de la sección */
+}
 
-  .boton ion-select .select-icon {
-    color: #ff6600; /* Color del icono del select */
-  }
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
 
-  .boton ion-select .select-text {
-    color: #333; /* Color del texto dentro del select */
-  }
+p {
+  font-size: 1em;
+  color: #555;
+}
