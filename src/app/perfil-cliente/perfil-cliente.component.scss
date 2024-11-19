@@ -607,3 +607,102 @@ ion-content {
 .footer-content .privacy-links a {
   text-decoration: none;
 }
+
+
+.reviews-section {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-section h2 {
+  color: #ff6600;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.review-item {
+  padding: 15px;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.review-header {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.review-header ion-icon {
+  color: #ff6600;
+  font-size: 18px;
+}
+
+.review-comment {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555555;
+  font-style: italic;
+}
+
+/* Estilos del formulario para agregar reseñas */
+.reviews-section form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+.reviews-section form h3 {
+  color: #ff6600;
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.reviews-section form ion-item {
+  --highlight-color-focused: #ff6600;
+  --background: #ffffff;
+  margin-bottom: 15px;
+}
+
+.reviews-section form ion-label {
+  color: #555555;
+  font-size: 14px;
+}
+
+.reviews-section form ion-textarea {
+  font-size: 14px;
+}
+
+.reviews-section form ion-button {
+  --background: #ff6600;
+  --background-hover: #e65a00;
+  --background-activated: #cc5200;
+  --color: #ffffff;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+ion-segment {
+  --indicator-color: #ff6600; /* Indicador naranja */
+}
+
+ion-segment-button {
+  --color: #555; /* Color de texto no seleccionado (gris oscuro) */
+  --color-checked: #ff6600; /* Color de texto seleccionado (naranja) */
+}
+
+/* Estilo adicional para que el botón seleccionado sea más prominente */
+ion-segment-button[aria-selected="true"] {
+  font-weight: bold; /* Texto en negrita para el segmento seleccionado */
+}
+

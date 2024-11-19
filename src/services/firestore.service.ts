@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { ClubProfile } from 'src/models/club.model';
 import { DtProfile } from 'src/models/dt.model';
 import { ManagerProfile } from 'src/models/manager.model';
+import { Review } from 'src/models/reviews.model';
 
 
 
@@ -264,5 +265,37 @@ getClubByUserId(uid: string): Observable<any> {
   return this.firestore.collection('club', ref => ref.where('userId', '==', uid)).valueChanges();
 }
 
+
+getReviewsByProfileId(profileId: string) {
+  return this.firestore
+    .collection<Review>('reviews', (ref) =>
+      ref.where('profileId', '==', profileId)
+    )
+    .valueChanges()
+    .pipe(
+      catchError((error) => {
+        console.error('Error al cargar las reseñas:', error);
+        return throwError(error);
+      })
+    );
+}
+
+
+
+  addReview(review: Review) {
+    // Limpia los campos undefined o valores inválidos
+    const sanitizedReview = {
+      ...review,
+      userId: review.userId || '', // Asegúrate de que no sea undefined
+    };
+
+    return this.firestore.collection('reviews').doc(sanitizedReview.id).set(sanitizedReview);
+  }
+
+
+  // Generar ID único
+  generateId() {
+    return this.firestore.createId();
+  }
 
 }
