@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="header-content ion-align-items-center">
+        <!-- Logo -->
+        <ion-col size="12" size-md="3" class="logo-column">
+          <ion-button fill="clear" (click)="navigateTo('home')" class="logo-button">
+            <img src="../../assets/icon/70c6a3b2-eab6-49bf-bb62-5941d24c60f7.jfif" alt="logo" class="logo" />
+          </ion-button>
+        </ion-col>
+
+        <!-- Navigation buttons (hidden on mobile) -->
+        <ion-col size="12" size-md="6" class="nav-buttons-column">
+          <ion-buttons class="nav-buttons">
+            <ion-button fill="clear" class="nav-button" (click)="navigateTo('Jugadores')">Jugadores</ion-button>
+            <ion-button fill="clear" class="nav-button" (click)="navigateTo('managers')">Representantes</ion-button>
+            <ion-button fill="clear" class="nav-button" (click)="navigateTo('clubes')">Clubes</ion-button>
+            <ion-button fill="clear" class="nav-button" (click)="navigateTo('dts')">DT</ion-button>
+          </ion-buttons>
+        </ion-col>
+
+        <!-- Login and Register buttons (hidden on mobile) -->
+        <ion-col size="12" size-md="3" class="buttons-column">
+          <ion-buttons class="buttons-container">
+            <!-- <ion-button (click)="navigateTo('perfil')" class="login-button">PERFIL</ion-button> -->
+            <ion-button (click)="navigateTo('home')" class="start-button">FAQ</ion-button>
+          </ion-buttons>
+        </ion-col>
+
+        <!-- Hamburger menu (only visible on mobile) -->
+        <ion-col size="12" class="menu-hamburger-column">
+          <ion-menu-button auto-hide="false" class="menu-button"></ion-menu-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Sidebar menu -->
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content>
+    <ion-list>
+      <ion-item button (click)="navigateTo('Jugadores')">Jugadores</ion-item>
+      <ion-item button (click)="navigateTo('managers')">Representantes</ion-item>
+      <ion-item button (click)="navigateTo('clubes')">Clubes</ion-item>
+      <!-- <ion-item button (click)="navigateTo('dts')">DT</ion-item> -->
+      <ion-item button (click)="navigateTo('perfil')">Perfil</ion-item>
+      <ion-item button (click)="navigateTo('home')">Faq</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

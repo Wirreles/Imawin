@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { ManagerProfile } from 'src/models/manager.model';
 import { FirestoreService } from 'src/services/firestore.service';
 
+import { MenuController } from '@ionic/angular';
+
+
 @Component({
   selector: 'app-managers',
   templateUrl: './managers.component.html',
@@ -23,12 +26,19 @@ export class ManagersComponent  implements OnInit {
 
 
   constructor(private firestoreService: FirestoreService,
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.getAllManagers();
+     this.menuCtrl.enable(true, 'first');
   }
+
+   ionViewWillLeave() {
+  this.menuCtrl.enable(false, 'first');
+}
+
 
   getAllManagers() {
     this.firestoreService.getManagers().subscribe(
