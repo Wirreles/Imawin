@@ -297,14 +297,59 @@
 
 
     <div *ngIf="selectedSegment === 'videos' && userData?.tipo_usuario === 'player'">
-      <h2>Videos del Jugador</h2>
-      <p>Aquí se mostrarán los videos asociados a este jugador.</p>
+      <h2 class="profile-title">Videos del Jugador</h2>
+      <p *ngIf="!userData.videoLink">No hay videos disponibles para este jugador.</p>
+
+      <!-- Reproducir el video si existe -->
+      <div *ngIf="userData.videoLink">
+        <iframe
+          [src]="sanitizeUrl(userData.videoLink)"
+          width="100%"
+          height="315"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
 
-    <div *ngIf="selectedSegment === 'reviews'">
+
+    <div *ngIf="selectedSegment === 'reviews'" class="reviews-section">
       <h2>Reseñas</h2>
-      <p>Aquí se pueden ver y escribir reseñas para este usuario.</p>
+
+      <!-- Lista de reseñas -->
+      <div *ngIf="reviews && reviews.length > 0; else noReviews">
+        <div *ngFor="let review of reviews" class="review-item">
+          <div class="review-header">
+            <ion-icon name="star" *ngFor="let star of [].constructor(review.rating); let i = index"></ion-icon>
+          </div>
+          <p class="review-comment">{{ review.comment }}</p>
+        </div>
+      </div>
+      <ng-template #noReviews>
+        <p>No hay reseñas aún.</p>
+      </ng-template>
+
+      <!-- Formulario para agregar una nueva reseña -->
+      <div *ngIf="currentUser">
+        <h3>Dejar una reseña</h3>
+        <form (ngSubmit)="addReview()">
+          <ion-item>
+            <ion-label>Calificación</ion-label>
+            <ion-select [(ngModel)]="newReview.rating" name="rating" placeholder="Seleccione" required>
+              <ion-select-option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }} Estrellas</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Comentario</ion-label>
+            <ion-textarea [(ngModel)]="newReview.comment" name="comment" required></ion-textarea>
+          </ion-item>
+          <ion-button expand="block" type="submit" [disabled]="!newReview.rating || !newReview.comment">Enviar</ion-button>
+        </form>
+      </div>
     </div>
+
+
   </div>
 
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Review } from 'src/models/reviews.model';
+import { User } from 'src/models/users.models';
 import { FirestoreService } from 'src/services/firestore.service';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-perfil-cliente',
   templateUrl: './perfil-cliente.component.html',
@@ -11,21 +13,28 @@ export class PerfilClienteComponent implements OnInit {
   userId: string | null = null; // ID del usuario seleccionado
   userData: any = null; // Datos del usuario
   selectedSegment: string = 'info';
+  currentUser: User | null = null; // Usuario logueado
+  reviews: { rating: number; comment: string }[] = []; // Inicializar como arreglo vacío
+  newReview: Partial<Review> = {}; // Datos de la nueva reseña
+  sanitizedVideoUrl: SafeResourceUrl | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private firestoreService: FirestoreService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
     // Obtener el ID del usuario desde la ruta
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id'); // Suponiendo que el ID viene como parámetro de la ruta
       if (this.userId) {
         this.loadUserData(this.userId);
+        this.loadReviews(); // Cargar las reseñas del perfil seleccionado
       }
     });
+    this.loadCurrentUser();
   }
 
   // Método para cargar los datos del usuario
@@ -78,4 +87,75 @@ export class PerfilClienteComponent implements OnInit {
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
   }
+
+    // Cargar datos del usuario logueado
+    loadCurrentUser() {
+      const userString = localStorage.getItem('currentUser');
+      this.currentUser = userString ? JSON.parse(userString) : null;
+    }
+
+// Cargar reseñas del perfil actual
+loadReviews() {
+  if (this.userId) {
+    this.firestoreService.getReviewsByProfileId(this.userId).subscribe(
+      (reviews) => {
+        this.reviews = reviews; // Asigna directamente las reseñas
+        console.log('Reseñas cargadas:', this.reviews);
+      },
+      (error) => {
+        console.error('Error al cargar las reseñas:', error);
+      }
+    );
+  } else {
+    console.warn('No se encontró un ID de perfil válido para cargar las reseñas.');
+  }
+}
+
+
+
+addReview() {
+  const review: Review = {
+    id: this.firestoreService.generateId(), // Generar un ID único
+    profileId: this.userId || '', // Usa this.userId directamente
+    userId: this.currentUser?.uid || '', // ID del usuario logueado
+    rating: this.newReview.rating ?? 0, // Valor predeterminado para rating
+    comment: this.newReview.comment ?? '', // Valor predeterminado para comment
+  };
+
+  // Valida que todos los campos sean válidos antes de enviarlos
+  if (!review.rating || !review.comment || !review.profileId || !review.userId) {
+    console.error('Datos incompletos o inválidos:', review);
+    return;
+  }
+
+  // Llama al servicio para guardar la reseña
+  this.firestoreService
+    .addReview(review)
+    .then(() => {
+      console.log('Reseña agregada correctamente');
+      // Limpia el formulario después de agregar la reseña
+      this.newReview = { rating: undefined, comment: '' };
+      this.loadReviews(); // Recarga las reseñas después de agregar una nueva
+    })
+    .catch((error) => {
+      console.error('Error al agregar la reseña:', error);
+    });
+}
+
+sanitizeUrl(url: string): SafeResourceUrl {
+  const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&]+)/);
+  const timeMatch = url.match(/t=(\d+)/);
+
+  if (videoIdMatch) {
+    const videoId = videoIdMatch[1];
+    const startTime = timeMatch ? `?start=${timeMatch[1]}` : '';
+    const embedUrl = `https://www.youtube.com/embed/${videoId}${startTime}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
+  console.error('Invalid YouTube URL');
+  return '';
+}
+
+
 }
