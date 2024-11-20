@@ -68,4 +68,15 @@ export class PerfilComponent implements OnInit {
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
   }
+
+  // Función para manejar el cierre de sesión
+  logout() {
+    this.firestoreService.logout().then(() => {
+      console.log('Sesión cerrada');
+                          this.router.navigate(['/login']);
+    }).catch(error => {
+      console.error('Error al cerrar sesión:', error);
+    });
+  }
+
 }

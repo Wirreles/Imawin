@@ -282,7 +282,9 @@ async selectUserType(type: string) {
             .then(() => {
               loading.dismiss();
               this.showToast(`Perfil de ${userType} creado con éxito!`);
-              // this.router.navigate([`/perfil${userType.charAt(0).toUpperCase() + userType.slice(1)}`, profileData.playerName || profileData.clubName]);
+
+                          this.router.navigate(['/login']);
+
             })
             .catch(async (error) => {
               await loading.dismiss();
