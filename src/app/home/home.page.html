@@ -17,7 +17,7 @@
             <ion-button fill="clear" class="nav-button" (click)="navigateTo('clubes')">Clubes</ion-button>
             <ion-button fill="clear" class="nav-button" (click)="navigateTo('dts')">DT</ion-button>
 
-                  <ion-item button (click)="navigateTo('q&a')">Faq</ion-item>
+
 
           </ion-buttons>
         </ion-col>
@@ -25,8 +25,15 @@
         <!-- Login and Register buttons (hidden on mobile) -->
         <ion-col size="12" size-md="3" class="buttons-column">
           <ion-buttons class="buttons-container">
-            <ion-button (click)="navigateTo('login')" class="login-button">INICIAR SESIÓN</ion-button>
-            <ion-button (click)="navigateTo('register')" class="start-button">COMENZAR GRATIS</ion-button>
+            <ng-container *ngIf="user; else guestButtons">
+      <ion-button class="start-button">{{ userEmail }}</ion-button>
+    </ng-container>
+
+    <!-- Botones para usuarios invitados -->
+    <ng-template #guestButtons>
+      <ion-button (click)="navigateTo('login')" class="login-button">INICIAR SESIÓN</ion-button>
+      <ion-button (click)="navigateTo('register')" class="start-button">COMENZAR GRATIS</ion-button>
+    </ng-template>
           </ion-buttons>
         </ion-col>
 

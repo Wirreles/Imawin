@@ -15,6 +15,8 @@ export class HomePage  implements OnInit {
   userEmail: string | null = null; // Variable para almacenar el email del usuario
 
 
+
+
   constructor(private router: Router, private firestoreService: FirestoreService,private cdRef: ChangeDetectorRef) {}
 
    ngOnInit() {

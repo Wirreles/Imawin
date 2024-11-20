@@ -54,40 +54,87 @@ export class FirestoreService {
 
 
 
+
 // ==============================
   // Firebase Authentication
   // ==============================
 
-  // Registro con email y contraseña
-  registerWithEmail(email: string, password: string): Promise<any> {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        // Guardar información adicional en Firestore
-        return this.firestore.collection('usuarios').doc(user?.uid).set({
-          uid: user?.uid,
-          email: user?.email,
-          creado: new Date(),
-          loggedIn: true // Marcar al usuario como logueado
-        });
-      });
+
+ // Método para cerrar sesión
+  logout(): Promise<void> {
+    return this.afAuth.signOut().then(() => {
+    localStorage.removeItem('currentUser');
+      console.log('Usuario deslogueado');
+    }).catch(error => {
+      console.error('Error al cerrar sesión: ', error);
+      throw error;
+    });
   }
 
-  // Registro con Google
-  registerWithGoogle(): Promise<any> {
-    return this.afAuth.signInWithPopup(new GoogleAuthProvider())
-      .then(userCredential => {
-        const user = userCredential.user;
-        // Guardar información adicional en Firestore si el usuario es nuevo
-        return this.firestore.collection('usuarios').doc(user?.uid).set({
-          uid: user?.uid,
-          email: user?.email,
-          creado: new Date(),
-          proveedor: 'Google',
-          loggedIn: true // Marcar al usuario como logueado
+
+
+
+
+registerWithEmail(email: string, password: string): Promise<any> {
+  return this.firestore.collection('usuarios', ref => ref.where('email', '==', email)).get()
+    .toPromise()
+    .then(snapshot => {
+      if (snapshot && !snapshot.empty) { // Verificar si snapshot existe y no está vacío
+        // El correo ya está registrado, mostrar alerta
+        window.alert('Este correo electrónico ya está registrado');
+        throw new Error('Este correo electrónico ya está registrado');
+      }
+
+      // Si el correo no está registrado, proceder con el registro
+      return this.afAuth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+          // Guardar información adicional en Firestore
+          return this.firestore.collection('usuarios').doc(user?.uid).set({
+            uid: user?.uid,
+            email: user?.email,
+            creado: new Date(),
+            loggedIn: true // Marcar al usuario como logueado
+          });
         });
-      });
-  }
+    })
+    .catch(error => {
+      console.error('Error en el registro: ', error);
+      throw error;
+    });
+}
+
+registerWithGoogle(): Promise<any> {
+  return this.afAuth.signInWithPopup(new GoogleAuthProvider())
+    .then(userCredential => {
+      const user = userCredential.user;
+
+      // Verificar si el correo ya está registrado en Firestore
+      return this.firestore.collection('usuarios', ref => ref.where('email', '==', user?.email)).get()
+        .toPromise()
+        .then(snapshot => {
+          if (snapshot && !snapshot.empty) { // Verificar si snapshot existe y no está vacío
+            // El correo ya está registrado, mostrar alerta
+            window.alert('Este correo electrónico ya está registrado');
+            throw new Error('Este correo electrónico ya está registrado');
+          }
+
+          // Si el correo no está registrado, proceder con la creación de usuario en Firestore
+          return this.firestore.collection('usuarios').doc(user?.uid).set({
+            uid: user?.uid,
+            email: user?.email,
+            creado: new Date(),
+            proveedor: 'Google',
+            loggedIn: true // Marcar al usuario como logueado
+          });
+        });
+    })
+    .catch(error => {
+      console.error('Error en el registro: ', error);
+      throw error;
+    });
+}
+
 
   // Iniciar sesión con email y contraseña
   loginWithEmail(email: string, password: string): Promise<any> {

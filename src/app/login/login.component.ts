@@ -56,7 +56,7 @@ export class LoginComponent {
                     }
                     loading.dismiss();
                     this.showToast('Sesión iniciada exitosamente');
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/perfil']);
                 });
             } else {
                 await loading.dismiss();
@@ -97,7 +97,7 @@ async loginWithGoogle() {
                   }
                   loading.dismiss();
                   this.showToast('Sesión iniciada con Google exitosamente');
-                  this.router.navigate(['/home']);
+                    this.router.navigate(['/perfil']);
               });
           } else {
               await loading.dismiss();
