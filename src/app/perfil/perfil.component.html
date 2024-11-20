@@ -65,6 +65,7 @@
     </div>
 
     <div class="player-profile">
+      <!-- Left Column -->
       <div class="left-column">
         <img
           [src]="userProfileData.profilePhotoUrl"
@@ -75,38 +76,110 @@
           <p><strong>Edad:</strong> {{ userProfileData.age }}</p>
           <p><strong>Nacionalidad:</strong> {{ userProfileData.country }}</p>
           <p><strong>Provincia:</strong> {{ userProfileData.province }}</p>
-          <p><strong>Ciudad:</strong> {{ userProfileData.city }}</p> <!-- Puedes agregar el campo ciudad si existe -->
+          <p><strong>Ciudad:</strong> {{ userProfileData.city }}</p>
         </div>
       </div>
 
+      <!-- Right Column -->
       <div class="right-column">
-        <div class="player-details">
-          <h3>{{ userProfileData.playerName }}</h3>
-          <p><strong>Posición principal:</strong> {{ userProfileData.position }}</p>
-          <p><strong>Altura:</strong> {{ userProfileData.height }}</p>
-          <p><strong>Pierna hábil:</strong> {{ userProfileData.footPreference }}</p>
+        <!-- Ion Segment -->
+        <ion-segment (ionChange)="onSegmentChange($event)" value="info">
+          <ion-segment-button value="info">
+            <ion-label>Información</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="videos">
+            <ion-label>Videos</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <!-- Contenido dinámico basado en el segmento activo -->
+        <div *ngIf="activeSegment === 'info'">
+          <div class="player-details">
+            <h3>{{ userProfileData.playerName }}</h3>
+            <p><strong>Posición principal:</strong> {{ userProfileData.position }}</p>
+            <p><strong>Altura:</strong> {{ userProfileData.height }}</p>
+            <p><strong>Pierna hábil:</strong> {{ userProfileData.footPreference }}</p>
+          </div>
+
+          <div class="player-section">
+            <h3>Perfil personal</h3>
+            <p>Descripción como jugador: {{ userProfileData.detalle }}</p>
+            <p>Años de experiencia: {{ userProfileData.yearsOfExperience }}</p>
+          </div>
+
+          <div class="player-section">
+            <h3>Actualidad</h3>
+            <p><strong>Equipo actual:</strong> {{ userProfileData.currentClub }}</p>
+            <p><strong>Último equipo:</strong> {{ userProfileData.lastClub }}</p>
+            <p>
+              <strong>Video de presentación:</strong>
+              <a [href]="userProfileData.videoLink" target="_blank">{{ userProfileData.videoLink }}</a>
+            </p>
+          </div>
+
+          <div class="player-buttons">
+            <ion-button fill="solid" style="background-color: #e9f1ef;" color="orange">Compartir</ion-button>
+            <ion-button fill="outline" color="orange" style="background-color: #ebe6e3;">Contactar</ion-button>
+          </div>
         </div>
 
-        <div class="player-section">
-          <h3>Perfil personal</h3>
-          <p>Descripción como jugador: {{ userProfileData.detalle }}</p>
-          <p>Años de experiencia: {{ userProfileData.yearsOfExperience }}</p>
-        </div>
+<!-- Segmento de Videos -->
+<div *ngIf="activeSegment === 'videos'" class="player-videos">
+  <h3>Videos del Jugador</h3>
 
-        <div class="player-section">
-          <h3>Actualidad</h3>
-          <p><strong>Equipo actual:</strong> {{ userProfileData.currentClub }}</p>
-          <p><strong>Último equipo:</strong> {{ userProfileData.lastClub }}</p>
-          <p><strong>Video de presentación:</strong> <a [href]="userProfileData.videoLink" target="_blank">{{ userProfileData.videoLink }}</a></p>
-        </div>
+  <!-- Lista de Videos -->
+  <ion-card *ngFor="let video of playerVideos" class="video-card">
+    <ion-card-header>
+      <ion-card-title>{{ video.title }}</ion-card-title>
+    </ion-card-header>
 
-        <div class="player-buttons">
-          <ion-button fill="solid" style="background-color: #e9f1ef;" color="orange">Compartir</ion-button>
-          <ion-button fill="outline" color="orange" style="background-color: #ebe6e3;">Contactar</ion-button>
-        </div>
+    <ion-card-content>
+      <p>{{ video.description }}</p>
+      <iframe
+        [src]="video.safeUrl"
+        width="100%"
+        height="315"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para agregar un nuevo video -->
+  <ion-button expand="full" color="primary" (click)="isVideoFormOpen = !isVideoFormOpen">
+    {{ isVideoFormOpen ? 'Ocultar Formulario' : 'Agregar Nuevo Video' }}
+  </ion-button>
+
+  <!-- Formulario de Videos -->
+  <div *ngIf="isVideoFormOpen" class="video-form-container">
+    <form [formGroup]="videoForm" (ngSubmit)="addVideo()">
+      <ion-item>
+        <ion-label position="stacked">Título</ion-label>
+        <ion-input formControlName="title" placeholder="Ingresa el título"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea formControlName="description" placeholder="Ingresa una descripción"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Link de Video</ion-label>
+        <ion-input formControlName="videoLink" placeholder="Ingresa el enlace"></ion-input>
+      </ion-item>
+      <div class="form-actions">
+        <ion-button expand="full" color="success" type="submit" [disabled]="videoForm.invalid">
+          Guardar Video
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
+
+
 
 
   <div *ngIf="userProfileData.tipo_usuario === 'club'">

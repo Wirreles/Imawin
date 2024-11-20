@@ -334,3 +334,41 @@ ion-content {
   display: flex;
   gap: 20px;
 }
+
+
+ion-card {
+  margin: 10px 0;
+}
+
+ion-card-header {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+ion-card-content {
+  padding: 15px;
+}
+
+ion-button {
+  margin-top: 15px;
+}
+
+.player-videos {
+  h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .video-card {
+    margin-bottom: 20px;
+  }
+
+  iframe {
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+
+  .video-form-container {
+    margin-top: 20px;
+  }
+}

@@ -17,6 +17,9 @@ export class PerfilClienteComponent implements OnInit {
   reviews: { rating: number; comment: string }[] = []; // Inicializar como arreglo vacío
   newReview: Partial<Review> = {}; // Datos de la nueva reseña
   sanitizedVideoUrl: SafeResourceUrl | null = null;
+  videos: { id: string; title: string; description: string; safeUrl: SafeResourceUrl }[] = [];
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,7 @@ export class PerfilClienteComponent implements OnInit {
       }
     });
     this.loadCurrentUser();
+    this.loadVideos(); // Cargar los videos del usuario
   }
 
   // Método para cargar los datos del usuario
@@ -143,19 +147,47 @@ addReview() {
 }
 
 sanitizeUrl(url: string): SafeResourceUrl {
-  const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&]+)/);
-  const timeMatch = url.match(/t=(\d+)/);
-
-  if (videoIdMatch) {
-    const videoId = videoIdMatch[1];
-    const startTime = timeMatch ? `?start=${timeMatch[1]}` : '';
-    const embedUrl = `https://www.youtube.com/embed/${videoId}${startTime}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  try {
+    const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&]+)/);
+    if (videoIdMatch) {
+      const videoId = videoIdMatch[1];
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    } else {
+      console.error('URL de YouTube inválida:', url);
+      return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    }
+  } catch (error) {
+    console.error('Error procesando la URL:', url, error);
+    return this.sanitizer.bypassSecurityTrustResourceUrl('');
   }
-
-  console.error('Invalid YouTube URL');
-  return '';
 }
+
+
+
+loadVideos() {
+  if (this.userId) {
+    this.firestoreService.getPlayerVideos(this.userId).subscribe(
+      (videos) => {
+        this.videos = videos.map((video) => ({
+          ...video,
+          safeUrl: this.sanitizeUrl(video.videoLink) // Sanitiza aquí
+        }));
+        console.log('Videos cargados:', this.videos);
+      },
+      (error) => {
+        console.error('Error al cargar los videos:', error);
+      }
+    );
+  } else {
+    console.warn('No se encontró un ID de usuario válido para cargar los videos.');
+  }
+}
+
+
+
+
+
 
 
 }

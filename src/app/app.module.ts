@@ -20,7 +20,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore'; // Importar Firestore
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PerfilComponent } from './perfil/perfil.component';
 import { ManagersComponent } from './managers/managers.component';
@@ -46,6 +46,7 @@ import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.componen
     IonicModule.forRoot(),
     AngularFirestoreModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule
