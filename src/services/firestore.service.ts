@@ -10,6 +10,7 @@ import { ManagerProfile } from 'src/models/manager.model';
 import { Review } from 'src/models/reviews.model';
 import { Message } from 'src/models/message.model';
 import { Timestamp } from '@angular/fire/firestore';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 
@@ -21,7 +22,9 @@ import { Timestamp } from '@angular/fire/firestore';
 })
 export class FirestoreService {
 
-  constructor(private firestore: AngularFirestore,private afAuth: AngularFireAuth) { }
+  constructor(private firestore: AngularFirestore,private afAuth: AngularFireAuth,
+    private domSanitizer: DomSanitizer
+  ) { }
 
 
 
@@ -213,6 +216,37 @@ registerWithGoogle(): Promise<any> {
 getPlayers(): Observable<any[]> {
   return this.firestore.collection('player').valueChanges(); // Aquí asegúrate que sea 'players'
 }
+
+// Obtener todos los videos de un jugador
+getVideosByPlayer(userId: string): Observable<any[]> {
+  return this.firestore
+    .collection('player')
+    .doc(userId)
+    .collection('videos')
+    .valueChanges({ idField: 'id' });
+}
+
+getPlayerVideos(userId: string): Observable<{ id: string; title: string; description: string; videoLink: string }[]> {
+  return this.firestore
+    .collection('player')
+    .doc(userId)
+    .collection('videos')
+    .valueChanges({ idField: 'id' })
+    .pipe(
+      map((documents) =>
+        documents.map((doc: any) => ({
+          id: doc.id,
+          title: doc.title || 'Sin título',
+          description: doc.description || 'Sin descripción',
+          videoLink: doc.videoLink || '' // Devuelve el enlace sin sanitizar
+        }))
+      )
+    );
+}
+
+
+
+
 
 
 
