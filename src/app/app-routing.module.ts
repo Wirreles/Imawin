@@ -50,6 +50,8 @@ const routes: Routes = [
   path: 'perfil',
   component:PerfilComponent
 },
+{ path: 'perfil/:id', component: PerfilComponent }
+,
 {
   path: 'q&a',
   component:NavbarComponent

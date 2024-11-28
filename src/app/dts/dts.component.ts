@@ -78,4 +78,49 @@ export class DtsComponent implements OnInit {
   updateFilters() {
     this.applyFilters();
   }
+
+
+
+shareDtProfile(dt: any) {
+  const dtProfileUrl = `${window.location.origin}/perfil-cliente/${dt.userId}`;
+
+  if (navigator.share) {
+    // Si Web Share API está disponible
+    navigator.share({
+      title: `Perfil de ${dt.playerName}`,
+      text: `Mira el perfil de este DT: ${dt.playerName}`,
+      url: dtProfileUrl,
+    })
+    .then(() => console.log('Perfil compartido con éxito'))
+    .catch((error) => console.error('Error al compartir:', error));
+  } else {
+    // Alternativa: Copiar el enlace al portapapeles
+    navigator.clipboard.writeText(dtProfileUrl)
+      .then(() => alert('Enlace del perfil copiado al portapapeles'))
+      .catch((error) => console.error('Error al copiar el enlace:', error));
+  }
+}
+
+getProfileUrl(dt: any): string {
+  if (dt && dt.userId) {
+    return `${window.location.origin}/perfil-dt/${dt.userId}`;
+  } else {
+    console.error('Error: dt.userId no está definido');
+    return ''; // Retorna una cadena vacía si no se encuentra userId
+  }
+}
+
+
+copyToClipboard(url: string): void {
+  navigator.clipboard.writeText(url)
+    .then(() => alert('Enlace copiado al portapapeles'))
+    .catch(err => console.error('Error al copiar el enlace:', err));
+}
+
+
+encodeURIComponent(url: string): string {
+  return encodeURIComponent(url);
+}
+
+
 }

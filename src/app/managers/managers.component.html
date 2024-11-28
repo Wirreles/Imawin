@@ -65,6 +65,8 @@
     <h1 class="gradient-text">Perfil de Managers</h1>
   </div>
 
+  <div class="filtrosresponsive" >
+
 
   <!-- Contenedor de filtros -->
   <div class="filters-container">
@@ -86,7 +88,7 @@
     </div>
   </div>
 
-
+</div>
   <br />
 
 
@@ -112,6 +114,14 @@
       <button [routerLink]="['/perfil-cliente', manager.userId]" class="view-profile-button">
         Ver Perfil
       </button>
+
+
+<div class="share-options">
+  <button (click)="copyToClipboard(getProfileUrl(manager))" class="share-button copy">
+    <i class="fas fa-link"></i> Copiar enlace
+  </button>
+</div>
+
     </div>
   </div>
 </div>

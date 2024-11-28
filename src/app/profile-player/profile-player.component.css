@@ -457,3 +457,137 @@ ion-content {
 .view-profile-button:hover {
   background-color: #555555;
 }
+
+
+/* -------------- */
+
+
+.filtrosresponsive {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* Filtros principales (izquierda) */
+.left-filters ion-segment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Botones en los filtros */
+.left-filters ion-segment-button {
+  flex: 1 1 auto; /* Se ajustan automáticamente al espacio disponible */
+  text-align: center;
+  min-width: 100px; /* Tamaño mínimo para evitar que se compriman demasiado */
+  max-width: 180px;
+}
+
+/* Móviles: Vista apilada */
+@media (max-width: 768px) {
+  .filtrosresponsive {
+    flex-direction: column; /* Apilar los filtros en columnas */
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .left-filters ion-segment {
+    flex-wrap: wrap; /* Permitir que los botones de filtro pasen a la siguiente fila */
+    gap: 5px;
+  }
+
+  .left-filters ion-segment-button {
+    min-width: 90px; /* Ajustar el tamaño mínimo en pantallas más pequeñas */
+    font-size: 14px; /* Tamaño de texto más pequeño */
+    padding: 8px; /* Reducir el padding en los botones */
+  }
+}
+
+/* Tablets: Vista ligeramente ajustada */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .filtrosresponsive {
+    flex-direction: row; /* Mostrar los filtros en una fila */
+    justify-content: space-around;
+  }
+
+  .left-filters ion-segment {
+    justify-content: space-between;
+  }
+
+  .left-filters ion-segment-button {
+    max-width: 150px;
+  }
+}
+
+/* Desktop: Vista amplia */
+@media (min-width: 1025px) {
+  .filtrosresponsive {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .left-filters ion-segment {
+    justify-content: flex-start;
+  }
+
+  .left-filters ion-segment-button {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+
+.share-options {
+  display: flex;
+  gap: 10px;
+
+  .share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+
+    i {
+      margin-right: 5px;
+    }
+
+    &.facebook {
+      background-color: #3b5998;
+
+      &:hover {
+        background-color: #2d4373;
+      }
+    }
+
+    &.twitter {
+      background-color: #1da1f2;
+
+      &:hover {
+        background-color: #0d95e8;
+      }
+    }
+
+    &.whatsapp {
+      background-color: #25d366;
+
+      &:hover {
+        background-color: #1ebd52;
+      }
+    }
+
+    &.copy {
+      background-color: #555;
+
+      &:hover {
+        background-color: #444;
+      }
+    }
+  }
+}

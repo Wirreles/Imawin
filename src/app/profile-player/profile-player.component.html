@@ -69,6 +69,8 @@
 
 
 
+<div class="filtrosresponsive" >
+
  <div class="filters-container">
     <!-- Filtros a la izquierda -->
     <div class="left-filters">
@@ -91,6 +93,8 @@
         <ion-segment-button value="extremo">Extremo</ion-segment-button>
       </ion-segment>
     </div>
+
+</div>
 
     <!-- Filtros a la derecha -->
     <div class="right-filters">
@@ -131,6 +135,15 @@
         <button [routerLink]="['/perfil-cliente', player.userId]" class="view-profile-button">
           Ver Perfil
         </button>
+
+<div class="share-options">
+  <button (click)="copyToClipboard(getProfileUrl(player))" class="share-button copy">
+    <i class="fas fa-link"></i> Copiar enlace
+  </button>
+</div>
+
+
+
       </div>
     </div>
   </div>

@@ -64,7 +64,7 @@
     <h1 class="gradient-text">Perfiles de Directores Tecnico</h1>
   </div>
 
-
+<div class="filtrosresponsive" >
 
  <!-- Contenedor de filtros -->
   <div class="filters-container">
@@ -86,6 +86,8 @@
         <ion-select-option value="Depende">Depende</ion-select-option>
       </ion-select>
       </div>
+
+    </div>
 
     </div>
 
@@ -128,6 +130,17 @@
       <button [routerLink]="['/perfil-cliente', dt.userId]" class="view-profile-button">
         Ver Perfil
       </button>
+
+<!-- Opciones para compartir -->
+  <div class="share-options">
+
+ 
+    <button (click)="copyToClipboard(getProfileUrl(dt))" class="share-button copy">
+      <i class="fas fa-link"></i> Copiar enlace
+    </button>
+  </div>
+
+
     </div>
   </div>
 </div>

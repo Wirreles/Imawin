@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { FirestoreService } from 'src/services/firestore.service';
+declare var FB: any; // Correcto
+
 
 @Component({
   selector: 'app-perfil',
@@ -15,6 +17,10 @@ import { FirestoreService } from 'src/services/firestore.service';
 export class PerfilComponent implements OnInit {
   currentUser: any;
   userProfileData: any;
+
+  userProfileUrl: any;  // Propiedad para la URL del perfil
+
+
   activeSegment: string = 'info'; // Valor inicial del segmento
   isVideoFormOpen = false; // Estado del formulario desplegable
   videoForm!: FormGroup;
@@ -29,6 +35,9 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+
+
     this.loadCurrentUser();
     this.loadUserProfile();
     this.videoForm = this.fb.group({
@@ -84,8 +93,36 @@ export class PerfilComponent implements OnInit {
     profile$.subscribe(profileData => {
       this.userProfileData = profileData[0];  // Guarda el primer elemento del arreglo
       console.log(`Datos de perfil de ${tipo_usuario}:`, this.userProfileData);
+
+
+  // Usa 'uid' en lugar de 'id' si es necesario
+  const userId = this.userProfileData.uid || this.currentUser.uid;
+  this.userProfileUrl = `https://www.imawin.com.ar/perfil/${userId}`;
+  console.log('URL del perfil:', this.userProfileUrl);
+
+
     });
   }
+
+
+shareViaUrl() {
+  const userId = this.userProfileData?.uid || this.currentUser?.uid;
+  if (!userId) {
+    console.error("No se puede compartir: UID no válido.");
+    return;
+  }
+  console.log("UID del usuario para compartir:", userId); // Verificar el UID
+
+  this.userProfileUrl = `https://www.imawin.com.ar/perfil/${userId}`;
+  console.log("URL generada:", this.userProfileUrl); // Verificar la URL generada
+
+  // Añadir un parámetro único para evitar caché en Facebook
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.userProfileUrl)}&fbrefresh=${new Date().getTime()}`;
+
+  window.open(facebookShareUrl, '_blank');
+}
+
+
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
@@ -159,5 +196,11 @@ export class PerfilComponent implements OnInit {
     console.error('Invalid YouTube URL');
     return '';
   }
+
+
+
+
+
+
 
 }
