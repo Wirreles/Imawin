@@ -110,6 +110,13 @@
       <button [routerLink]="['/perfil-cliente', club.userId]" class="view-profile-button">
         Ver Perfil
       </button>
+
+  <!-- Botón para copiar el link del perfil -->
+  
+<button (click)="copyProfileLink(club.userId)" class="copy-link-button">
+  <i class="fas fa-link"></i> Copiar Link
+</button>
+
     </div>
   </div>
 </div>

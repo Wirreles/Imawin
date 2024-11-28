@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClubProfile } from 'src/models/club.model';
 import { FirestoreService } from 'src/services/firestore.service';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Platform } from '@ionic/angular';
+
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+
 
 
 
@@ -30,6 +33,8 @@ export class ClubesComponent implements OnInit {
   constructor(private router: Router,
   private menuCtrl: MenuController,
     private firestoreService: FirestoreService,
+    private platform: Platform
+
   ) { }
 
   ngOnInit() {
@@ -73,5 +78,33 @@ export class ClubesComponent implements OnInit {
        club.country?.toLowerCase().includes(countryFilterLower))
     );
   }
+
+ 
+
+ // Método para copiar el enlace del perfil
+ copyProfileLink(userId: string): void {
+  const link = `https://inawin.com.ar/perfil/${userId}`;  // Generamos el enlace a copiar
+
+  // Intentamos copiar el enlace al portapapeles usando la API Clipboard
+  navigator.clipboard.writeText(link).then(() => {
+    console.log('Enlace copiado al portapapeles: ', link);
+  }).catch((error) => {
+    console.error('Error al copiar al portapapeles: ', error);
+  });
 }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

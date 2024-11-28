@@ -13,7 +13,6 @@ import { ProfilePlayerComponent } from './profile-player/profile-player.componen
 import { ClubesComponent } from './clubes/clubes.component';
 import { DtsComponent } from './dts/dts.component';
 
-
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // Si usarás autenticación
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -27,6 +26,8 @@ import { ManagersComponent } from './managers/managers.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.component';
 
+import { Clipboard } from '@ionic-native/clipboard/ngx'; // Importar Clipboard
+
 @NgModule({
   declarations: [
     PerfilClienteComponent,
@@ -38,7 +39,7 @@ import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.componen
     DtsComponent,
     RegisterComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,11 +50,10 @@ import { PerfilClienteComponent } from './perfil-cliente/perfil-cliente.componen
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [  Clipboard, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Asegúrate de incluirlo aquí
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Asegúrate de incluirlo aquí
 })
 export class AppModule {}
-
